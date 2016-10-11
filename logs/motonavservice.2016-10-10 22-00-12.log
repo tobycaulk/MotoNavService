@@ -1,0 +1,2 @@
+INFO: com.tcaulk.motonav.gms.GoogleMapsServiceImpl.getGeoApiContext() - Retrieving GeoApiContext
+INFO: com.tcaulk.motonav.gms.GoogleMapsServiceImpl.getDirectionsResult() - Retrieving directions from origin [315 Wilson Mills Road, Chardon, Ohio 44024] to  destination [Cleand, Oo] travel mode [driving] route restrictions []
