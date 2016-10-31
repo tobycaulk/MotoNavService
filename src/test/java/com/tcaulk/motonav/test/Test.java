@@ -23,7 +23,6 @@ public class Test {
 			if(context != null) {
 				DirectionRequest model = new DirectionRequest("315 Wilson Mills Road, Chardon, Ohio 44024", "Cleveland, Ohio", TravelMode.DRIVING, new ArrayList<>());
 				RouteContainer routes = gms.getRouteContainer(context, model);
-				routes.notify();
 			} else {
 				Logger.error("Context is null");
 			}
