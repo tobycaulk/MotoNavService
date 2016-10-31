@@ -8,7 +8,7 @@ public class Route {
 	private List<Leg> legs = new ArrayList<>();
 
 	public Route() {
-		this(new ArrayList<>());
+		this(new ArrayList<Leg>());
 	}
 	
 	public Route(List<Leg> legs) {

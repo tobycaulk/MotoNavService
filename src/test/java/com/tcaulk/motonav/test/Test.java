@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.pmw.tinylog.Logger;
 
+import com.google.maps.DirectionsApi.RouteRestriction;
 import com.google.maps.GeoApiContext;
 import com.google.maps.model.TravelMode;
 import com.tcaulk.motonav.directions.model.DirectionRequest;
@@ -21,7 +22,7 @@ public class Test {
 		try {
 			context = gms.getGeoApiContext(DIRECTIONS_API_KEY);
 			if(context != null) {
-				DirectionRequest model = new DirectionRequest("315 Wilson Mills Road, Chardon, Ohio 44024", "Cleveland, Ohio", TravelMode.DRIVING, new ArrayList<>());
+				DirectionRequest model = new DirectionRequest("315 Wilson Mills Road, Chardon, Ohio 44024", "Cleveland, Ohio", TravelMode.DRIVING, new ArrayList<RouteRestriction>());
 				RouteContainer routes = gms.getRouteContainer(context, model);
 			} else {
 				Logger.error("Context is null");
