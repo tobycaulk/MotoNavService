@@ -7,12 +7,14 @@ import org.pmw.tinylog.Logger;
 
 import com.google.maps.DirectionsApi;
 import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
 import com.google.maps.model.DirectionsLeg;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.DirectionsStep;
 import com.google.maps.model.Distance;
 import com.google.maps.model.Duration;
+import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.tcaulk.motonav.directions.model.DirectionRequest;
 import com.tcaulk.motonav.directions.model.Leg;
@@ -63,8 +65,8 @@ public class GoogleMapsServiceImpl implements GoogleMapsService {
 		RouteContainer routeContainer = new RouteContainer();
 		
 		DirectionsResult result = getDirectionsResult(context, directionModel);
-		//Parse Route
-		if(result != null) {
+		try {
+			//Parse Route
 			for(DirectionsRoute directionsRoute : result.routes) {
 				Route route = new Route();
 				for(DirectionsLeg directionsLeg : directionsRoute.legs) {
@@ -76,9 +78,18 @@ public class GoogleMapsServiceImpl implements GoogleMapsService {
 					for(DirectionsStep directionsStep : directionsLeg.steps) {
 						Distance stepDistance = directionsStep.distance;
 						Duration stepDuration = directionsStep.duration;
+						//Start is the current street you're on
 						LatLng stepStartLocation = directionsStep.startLocation;
+						GeocodingResult[] geocodingResult = GeocodingApi.newRequest(context).latlng(stepStartLocation).await();
+						String streetName = geocodingResult[0].addressComponents[1].longName;
+						String town = geocodingResult[0].addressComponents[2].longName;
+						String state = geocodingResult[0].addressComponents[4].longName;
+						String zipCode = geocodingResult[0].addressComponents[6].longName;
+						String country = geocodingResult[0].addressComponents[5].longName;
+						String address = streetName + ", " + town + ", " + state + " " + zipCode + ", " + country;
+						//End is the next street you're going to be on
 						LatLng stepEndLocation = directionsStep.endLocation;
-						Step step = new Step(stepDistance, stepDuration, stepStartLocation, stepEndLocation);
+						Step step = new Step(stepDistance, stepDuration, stepStartLocation, stepEndLocation, address);
 						steps.add(step);
 					}
 					Leg leg = new Leg(legDistance, legDuration, legStartLocation, legEndLocation, steps);
@@ -86,7 +97,7 @@ public class GoogleMapsServiceImpl implements GoogleMapsService {
 					routeContainer.addRoute(route);
 				}
 			}
-		} else {
+		} catch(Exception e) {
 			throw new MNException(MNError.INVALID_GMS_DIRECTIONS);
 		}
 		

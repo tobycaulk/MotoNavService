@@ -10,12 +10,14 @@ public class Step {
 	private Duration duration;
 	private LatLng startLocation;
 	private LatLng endLocation;
+	private String address;
 	
-	public Step(Distance distance, Duration duration, LatLng startLocation, LatLng endLocation) {
+	public Step(Distance distance, Duration duration, LatLng startLocation, LatLng endLocation, String address) {
 		this.distance = distance;
 		this.duration = duration;
 		this.startLocation = startLocation;
 		this.endLocation = endLocation;
+		this.address = address;
 	}
 
 	public Distance getDistance() {
@@ -48,5 +50,13 @@ public class Step {
 	
 	public void setEndLocation(LatLng endLocation) {
 		this.endLocation = endLocation;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

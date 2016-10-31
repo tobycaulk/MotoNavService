@@ -1,0 +1,6 @@
+INFO: com.tcaulk.motonav.gms.GoogleMapsServiceImpl.getGeoApiContext() - Retrieving GeoApiContext
+INFO: com.tcaulk.motonav.gms.GoogleMapsServiceImpl.getDirectionsResult() - Retrieving directions from origin [315 Wilson Mills Road, Chardon, Ohio 44024] to  destination [Cleveland, Ohio] travel mode [driving] route restrictions []
+ERROR: com.tcaulk.motonav.test.Test.testDirections() - com.tcaulk.motonav.error.exception.MNException: Invalid/Incomplete directions
+	at com.tcaulk.motonav.gms.GoogleMapsServiceImpl.getRouteContainer(GoogleMapsServiceImpl.java:101)
+	at com.tcaulk.motonav.test.Test.testDirections(Test.java:26)
+	at com.tcaulk.motonav.test.Test.main(Test.java:38)
